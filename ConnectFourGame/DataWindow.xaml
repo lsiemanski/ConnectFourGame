@@ -1,0 +1,111 @@
+﻿<Window x:Class="ConnectFourGame.DataWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConnectFourGame"
+        mc:Ignorable="d"
+        Title="DataWindow" Height="350" Width="800" Background="#292929">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" 
+               Grid.Column="1" 
+               Foreground="Red" 
+               FontFamily="Comic Sans MS" 
+               FontSize="16" 
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center">
+            Wygrane gracza 1
+        </Label>
+        <Label Grid.Row="0" 
+               Grid.Column="2" 
+               Foreground="AntiqueWhite" 
+               FontFamily="Comic Sans MS" 
+               FontSize="16" 
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center">
+            Remisy
+        </Label>
+        <Label Grid.Row="0" 
+               Grid.Column="3" 
+               Foreground="Yellow" 
+               FontFamily="Comic Sans MS" 
+               FontSize="16" 
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center">
+            Wygrane gracza 2
+        </Label>
+        <Label Grid.Row="1" 
+               Grid.Column="1"
+               Foreground="Red" 
+               FontFamily="Comic Sans MS" 
+               FontSize="16" 
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Name="Player1Wins"></Label>
+        <Label Grid.Row="1" 
+               Grid.Column="2"
+               Foreground="AntiqueWhite" 
+               FontFamily="Comic Sans MS" 
+               FontSize="16" 
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Name="Draws"></Label>
+        <Label Grid.Row="1" 
+               Grid.Column="3"
+               Foreground="Yellow" 
+               FontFamily="Comic Sans MS" 
+               FontSize="16" 
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Name="Player2Wins"></Label>
+        <Label Grid.Row="3" 
+               Grid.Column="1" 
+               Grid.ColumnSpan="3"
+               Foreground="AntiqueWhite" 
+               FontFamily="Comic Sans MS" 
+               FontSize="16" 
+               FontWeight="Bold"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               Name="AverageMoves">Średnio ruchów w partii: </Label>
+        <Label Grid.Row="4" 
+               Grid.Column="1" 
+               Grid.ColumnSpan="3"
+               Foreground="Red" 
+               FontFamily="Comic Sans MS" 
+               FontSize="16" 
+               FontWeight="Bold"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               Name="AveragePlayer1MoveTime">Średni czas ruchu gracza 1:</Label>
+        <Label Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"
+               Foreground="Yellow" 
+               FontFamily="Comic Sans MS" 
+               FontSize="16" 
+               FontWeight="Bold"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               Name="AveragePlayer2MoveTime">Średni czas ruchu gracza 2: </Label>
+    </Grid>
+</Window>

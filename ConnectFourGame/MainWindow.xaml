@@ -1,0 +1,703 @@
+﻿<Window x:Class="ConnectFourGame.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConnectFourGame"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800" Background="#292929">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="350"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="1"
+               Grid.Row="0"
+               HorizontalAlignment="Center"
+               Foreground="AntiqueWhite"
+               FontWeight="Bold"
+               FontFamily="Comic Sans MS"
+               FontSize="18">
+            Gracz 1:
+        </Label>
+        <Label Grid.Column="2"
+               Grid.Row="0"
+               HorizontalAlignment="Center"
+               Foreground="AntiqueWhite"
+               FontWeight="Bold"
+               FontFamily="Comic Sans MS"
+               FontSize="18">
+            Gracz 2:
+        </Label>
+        <Button Grid.Column="1"
+                Grid.Row="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Height="40"
+                Width="150"
+                Background="#464646"
+                Foreground="AntiqueWhite"
+                FontFamily="Comic Sans MS"
+                FontSize="16"
+                FontWeight="Bold"
+                Name="Player1Button"
+                Click="PlayerSelectButtonClick">
+            Człowiek
+        </Button>
+        <Button Grid.Column="2"
+                Grid.Row="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Height="40"
+                Width="150"
+                Background="#464646"
+                Foreground="AntiqueWhite"
+                FontFamily="Comic Sans MS"
+                FontSize="16"
+                FontWeight="Bold"
+                Name="Player2Button"
+                Click="PlayerSelectButtonClick">
+            AI
+        </Button>
+        <DockPanel Grid.Column="1" 
+                  Grid.Row="2"
+                  Visibility="Hidden"
+                  Name="AIOptions1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="240"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0"
+                       Grid.Row="0"
+                       HorizontalAlignment="Left"
+                       Foreground="AntiqueWhite"
+                       FontWeight="Bold"
+                       FontFamily="Comic Sans MS"
+                       FontSize="14">
+                    Algorytm:
+                </Label>
+                <ComboBox Grid.Row="0"
+                          Grid.Column="1"
+                          FontFamily="Comic Sans MS"
+                          HorizontalAlignment="Center"
+                          Width="150"
+                          Name="AlgorithmOptions1">
+                    <ComboBoxItem IsSelected="True">MinMax</ComboBoxItem>
+                    <ComboBoxItem>Alfa Beta</ComboBoxItem>
+                </ComboBox>
+                <Label Grid.Column="0"
+                       Grid.Row="1"
+                       HorizontalAlignment="Left"
+                       Foreground="AntiqueWhite"
+                       FontWeight="Bold"
+                       FontFamily="Comic Sans MS"
+                       FontSize="14">
+                    Głębokość:
+                </Label>
+                <Button Grid.Column="1"
+                        Grid.Row="1"
+                        Width="30"
+                        HorizontalAlignment="Left"
+                        Name="AIOptions1Minus"
+                        Click="AIOptionsMinusClick">
+                    -
+                </Button>
+                <TextBlock Grid.Column="1"
+                           Grid.Row="1"
+                           Width="140"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Foreground="AntiqueWhite"
+                           FontWeight="Bold"
+                           FontSize="14"
+                           TextAlignment="Center"
+                           Name="AIOptions1Depth">
+                    7
+                </TextBlock>
+                <Button Grid.Column="1"
+                        Grid.Row="1"
+                        Width="30"
+                        HorizontalAlignment="Right"
+                        Name="AIOptions1Plus"
+                        Click="AIOptionsPlusClick">
+                    +
+                </Button>
+                <Label Grid.Column="0"
+                       Grid.Row="2"
+                       HorizontalAlignment="Left"
+                       Foreground="AntiqueWhite"
+                       FontWeight="Bold"
+                       FontFamily="Comic Sans MS"
+                       FontSize="14">
+                    Heurystyka:
+                </Label>
+                <ComboBox Grid.Row="2"
+                          Grid.Column="1"
+                          FontFamily="Comic Sans MS"
+                          HorizontalAlignment="Center"
+                          Width="150"
+                          Name="Function1"
+                          SelectionChanged="Function1Changed">
+                    <ComboBoxItem IsSelected="True">Wygrywające pozycje</ComboBoxItem>
+                    <ComboBoxItem>Obiecujące pozycje</ComboBoxItem>
+                    <ComboBoxItem>Wygrana/przegrana</ComboBoxItem>
+                    <ComboBoxItem>Ważona</ComboBoxItem>
+                </ComboBox>
+                <Grid Grid.Row="4"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
+                    </Grid.RowDefinitions>
+                    <DockPanel Visibility="Visible"
+                               Name="Options1WinningPositionsWeights"
+                               Grid.Row="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0"
+                                   Grid.Row="0"
+                                   HorizontalAlignment="Left"
+                                   Foreground="AntiqueWhite"
+                                   FontWeight="Bold"
+                                   FontFamily="Comic Sans MS"
+                                   FontSize="14">
+                                Waga p1 (WP):
+                            </Label>
+                            <TextBox Grid.Row="0"
+                                     Grid.Column="1"
+                                     Width="100"
+                                     Height="26"
+                                     Name="Options1Player1Weight"
+                                     Text="1.0"></TextBox>
+                            <Label Grid.Column="0"
+                                   Grid.Row="1"
+                                   HorizontalAlignment="Left"
+                                   Foreground="AntiqueWhite"
+                                   FontWeight="Bold"
+                                   FontFamily="Comic Sans MS"
+                                   FontSize="14">
+                                Potęga p1 (WP):
+                            </Label>
+                            <TextBox Grid.Row="1"
+                                     Grid.Column="1"
+                                     Width="100"
+                                     Height="26"
+                                     Name="Options1Player1Power"
+                                     Text="4.0"></TextBox>
+                            <Label Grid.Column="0"
+                                   Grid.Row="2"
+                                   HorizontalAlignment="Left"
+                                   Foreground="AntiqueWhite"
+                                   FontWeight="Bold"
+                                   FontFamily="Comic Sans MS"
+                                   FontSize="14">
+                                Waga p2 (WP):
+                            </Label>
+                            <TextBox Grid.Row="2"
+                                     Grid.Column="1"
+                                     Width="100"
+                                     Height="26"
+                                     Name="Options1Player2Weight"
+                                     Text="1.0"></TextBox>
+                            <Label Grid.Column="0"
+                                   Grid.Row="3"
+                                   HorizontalAlignment="Left"
+                                   Foreground="AntiqueWhite"
+                                   FontWeight="Bold"
+                                   FontFamily="Comic Sans MS"
+                                   FontSize="14">
+                                Potęga p2 (WP):
+                            </Label>
+                            <TextBox Grid.Row="3"
+                                     Grid.Column="1"
+                                     Width="100"
+                                     Height="26"
+                                     Name="Options1Player2Power"
+                                     Text="4.0"></TextBox>
+                        </Grid>
+                    </DockPanel>
+                    <DockPanel Visibility="Hidden"
+                               Name="Options1PromisingPositionsWeights"
+                               Grid.Row="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0"
+                                   Grid.Row="0"
+                                   HorizontalAlignment="Left"
+                                   Foreground="AntiqueWhite"
+                                   FontWeight="Bold"
+                                   FontFamily="Comic Sans MS"
+                                   FontSize="14">
+                                Waga p1 (OP):
+                            </Label>
+                            <TextBox Grid.Row="0"
+                                     Grid.Column="1"
+                                     Width="100"
+                                     Height="26"
+                                     Name="Options1PromisingPlayer1Weight"
+                                     Text="1.0"></TextBox>
+                            <Label Grid.Column="0"
+                                   Grid.Row="1"
+                                   HorizontalAlignment="Left"
+                                   Foreground="AntiqueWhite"
+                                   FontWeight="Bold"
+                                   FontFamily="Comic Sans MS"
+                                   FontSize="14">
+                                Waga p2 (OP):
+                            </Label>
+                            <TextBox Grid.Row="1"
+                                     Grid.Column="1"
+                                     Width="100"
+                                     Height="26"
+                                     Name="Options1PromisingPlayer2Weight"
+                                     Text="1.0"></TextBox>
+                        </Grid>
+                    </DockPanel>
+                    <DockPanel Visibility="Hidden"
+                               Name="Options1WeightedWeights"
+                               Grid.Row="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0"
+                                   Grid.Row="0"
+                                   HorizontalAlignment="Left"
+                                   Foreground="AntiqueWhite"
+                                   FontWeight="Bold"
+                                   FontFamily="Comic Sans MS"
+                                   FontSize="14">
+                                Waga WP:
+                            </Label>
+                            <TextBox Grid.Row="0"
+                                     Grid.Column="1"
+                                     Width="100"
+                                     Height="26"
+                                     Name="Options1WinningPositionsWeight"
+                                     Text="1.0"></TextBox>
+                            <Label Grid.Column="0"
+                                   Grid.Row="1"
+                                   HorizontalAlignment="Left"
+                                   Foreground="AntiqueWhite"
+                                   FontWeight="Bold"
+                                   FontFamily="Comic Sans MS"
+                                   FontSize="14">
+                                Waga OP:
+                            </Label>
+                            <TextBox Grid.Row="1"
+                                     Grid.Column="1"
+                                     Width="100"
+                                     Height="26"
+                                     Name="Options1PromisingPositionsWeight"
+                                     Text="1.0"></TextBox>
+                        </Grid>
+                    </DockPanel>
+                </Grid>
+            </Grid>
+        </DockPanel>
+        <DockPanel Grid.Column="2" 
+                  Grid.Row="2"
+                  Visibility="Visible"
+                  Name="AIOptions2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="240"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0"
+                       Grid.Row="0"
+                       HorizontalAlignment="Left"
+                       Foreground="AntiqueWhite"
+                       FontWeight="Bold"
+                       FontFamily="Comic Sans MS"
+                       FontSize="14">
+                    Algorytm:
+                </Label>
+                <ComboBox Grid.Row="0"
+                          Grid.Column="1"
+                          FontFamily="Comic Sans MS"
+                          HorizontalAlignment="Center"
+                          Width="150"
+                          Name="AlgorithmOptions2">
+                    <ComboBoxItem IsSelected="True">MinMax</ComboBoxItem>
+                    <ComboBoxItem>Alfa Beta</ComboBoxItem>
+                </ComboBox>
+                <Label Grid.Column="0"
+                       Grid.Row="1"
+                       HorizontalAlignment="Left"
+                       Foreground="AntiqueWhite"
+                       FontWeight="Bold"
+                       FontFamily="Comic Sans MS"
+                       FontSize="14">
+                    Głębokość:
+                </Label>
+                <Button Grid.Column="1"
+                        Grid.Row="1"
+                        Width="30"
+                        HorizontalAlignment="Left"
+                        Name="AIOptions2Minus"
+                        Click="AIOptionsMinusClick">
+                    -
+                </Button>
+                <TextBlock Grid.Column="1"
+                           Grid.Row="1"
+                           Width="140"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Foreground="AntiqueWhite"
+                           FontWeight="Bold"
+                           FontSize="14"
+                           TextAlignment="Center"
+                           Name="AIOptions2Depth">
+                    7
+                </TextBlock>
+                <Button Grid.Column="1"
+                        Grid.Row="1"
+                        Width="30"
+                        HorizontalAlignment="Right"
+                        Name="AIOptions2Plus"
+                        Click="AIOptionsPlusClick">
+                    +
+                </Button>
+                <Label Grid.Column="0"
+                       Grid.Row="2"
+                       HorizontalAlignment="Left"
+                       Foreground="AntiqueWhite"
+                       FontWeight="Bold"
+                       FontFamily="Comic Sans MS"
+                       FontSize="14">
+                    Heurystyka:
+                </Label>
+                <ComboBox Grid.Row="2"
+                          Grid.Column="1"
+                          FontFamily="Comic Sans MS"
+                          HorizontalAlignment="Center"
+                          Width="150"
+                          Name="Function2"
+                          SelectionChanged="Function2Changed">
+                    <ComboBoxItem IsSelected="True">Wygrywające pozycje</ComboBoxItem>
+                    <ComboBoxItem>Obiecujące pozycje</ComboBoxItem>
+                    <ComboBoxItem>Wygrana/przegrana</ComboBoxItem>
+                    <ComboBoxItem>Ważona</ComboBoxItem>
+                </ComboBox>
+                <Grid Grid.Row="4"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
+                    </Grid.RowDefinitions>
+                    <DockPanel Visibility="Visible"
+                               Name="Options2WinningPositionsWeights"
+                               Grid.Row="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0"
+                                   Grid.Row="0"
+                                   HorizontalAlignment="Left"
+                                   Foreground="AntiqueWhite"
+                                   FontWeight="Bold"
+                                   FontFamily="Comic Sans MS"
+                                   FontSize="14">
+                                Waga p1 (WP):
+                            </Label>
+                            <TextBox Grid.Row="0"
+                                     Grid.Column="1"
+                                     Width="100"
+                                     Height="26"
+                                     Name="Options2Player1Weight"
+                                     Text="1.0"></TextBox>
+                            <Label Grid.Column="0"
+                                   Grid.Row="1"
+                                   HorizontalAlignment="Left"
+                                   Foreground="AntiqueWhite"
+                                   FontWeight="Bold"
+                                   FontFamily="Comic Sans MS"
+                                   FontSize="14">
+                                Potęga p1 (WP):
+                            </Label>
+                            <TextBox Grid.Row="1"
+                                     Grid.Column="1"
+                                     Width="100"
+                                     Height="26"
+                                     Name="Options2Player1Power"
+                                     Text="4.0"></TextBox>
+                            <Label Grid.Column="0"
+                                   Grid.Row="2"
+                                   HorizontalAlignment="Left"
+                                   Foreground="AntiqueWhite"
+                                   FontWeight="Bold"
+                                   FontFamily="Comic Sans MS"
+                                   FontSize="14">
+                                Waga p2 (WP):
+                            </Label>
+                            <TextBox Grid.Row="2"
+                                     Grid.Column="1"
+                                     Width="100"
+                                     Height="26"
+                                     Name="Options2Player2Weight"
+                                     Text="1.0"></TextBox>
+                            <Label Grid.Column="0"
+                                   Grid.Row="3"
+                                   HorizontalAlignment="Left"
+                                   Foreground="AntiqueWhite"
+                                   FontWeight="Bold"
+                                   FontFamily="Comic Sans MS"
+                                   FontSize="14">
+                                Potęga p2 (WP):
+                            </Label>
+                            <TextBox Grid.Row="3"
+                                     Grid.Column="1"
+                                     Width="100"
+                                     Height="26"
+                                     Name="Options2Player2Power"
+                                     Text="4.0"></TextBox>
+                        </Grid>
+                    </DockPanel>
+                    <DockPanel Visibility="Hidden"
+                               Name="Options2PromisingPositionsWeights"
+                               Grid.Row="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0"
+                                   Grid.Row="0"
+                                   HorizontalAlignment="Left"
+                                   Foreground="AntiqueWhite"
+                                   FontWeight="Bold"
+                                   FontFamily="Comic Sans MS"
+                                   FontSize="14">
+                                Waga p1 (OP):
+                            </Label>
+                            <TextBox Grid.Row="0"
+                                     Grid.Column="1"
+                                     Width="100"
+                                     Height="26"
+                                     Name="Options2PromisingPlayer1Weight"
+                                     Text="1.0"></TextBox>
+                            <Label Grid.Column="0"
+                                   Grid.Row="1"
+                                   HorizontalAlignment="Left"
+                                   Foreground="AntiqueWhite"
+                                   FontWeight="Bold"
+                                   FontFamily="Comic Sans MS"
+                                   FontSize="14">
+                                Waga p2 (OP):
+                            </Label>
+                            <TextBox Grid.Row="1"
+                                     Grid.Column="1"
+                                     Width="100"
+                                     Height="26"
+                                     Name="Options2PromisingPlayer2Weight"
+                                     Text="1.0"></TextBox>
+                        </Grid>
+                    </DockPanel>
+                    <DockPanel Visibility="Hidden"
+                               Name="Options2WeightedWeights"
+                               Grid.Row="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0"
+                                   Grid.Row="0"
+                                   HorizontalAlignment="Left"
+                                   Foreground="AntiqueWhite"
+                                   FontWeight="Bold"
+                                   FontFamily="Comic Sans MS"
+                                   FontSize="14">
+                                Waga WP:
+                            </Label>
+                            <TextBox Grid.Row="0"
+                                     Grid.Column="1"
+                                     Width="100"
+                                     Height="26"
+                                     Name="Options2WinningPositionsWeight"
+                                     Text="1.0"></TextBox>
+                            <Label Grid.Column="0"
+                                   Grid.Row="1"
+                                   HorizontalAlignment="Left"
+                                   Foreground="AntiqueWhite"
+                                   FontWeight="Bold"
+                                   FontFamily="Comic Sans MS"
+                                   FontSize="14">
+                                Waga OP:
+                            </Label>
+                            <TextBox Grid.Row="1"
+                                     Grid.Column="1"
+                                     Width="100"
+                                     Height="26"
+                                     Name="Options2PromisingPositionsWeight"
+                                     Text="1.0"></TextBox>
+                        </Grid>
+                    </DockPanel>
+                </Grid>
+            </Grid>
+        </DockPanel>
+        <Button Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Grid.Row="3"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Height="40"
+                Width="150"
+                Background="#464646"
+                Foreground="AntiqueWhite"
+                FontFamily="Comic Sans MS"
+                FontSize="16"
+                FontWeight="Bold"
+                Click="StartClick">
+            Graj
+        </Button>
+        <Grid Grid.Row="4"
+              Grid.Column="0"
+              Grid.ColumnSpan="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="75" />
+                <ColumnDefinition Width="125" />
+                <ColumnDefinition Width="175" />
+                <ColumnDefinition Width="175" />
+                <ColumnDefinition Width="175" />
+                <ColumnDefinition Width="75" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1"
+                        Grid.Row="0"
+                        Width="30"
+                        HorizontalAlignment="Left"
+                        Name="TestNumberMinus"
+                        Click="TestNumberMinusClick">
+                -
+            </Button>
+            <TextBlock Grid.Column="1"
+                           Grid.Row="0"
+                           Width="140"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Foreground="AntiqueWhite"
+                           FontWeight="Bold"
+                           FontSize="14"
+                           TextAlignment="Center"
+                           Name="TestNumber">
+                    10
+            </TextBlock>
+            <Button Grid.Column="1"
+                        Grid.Row="0"
+                        Width="30"
+                        HorizontalAlignment="Right"
+                        Name="TestNumberPlus"
+                        Click="TestNumberPlusClick">
+                +
+            </Button>
+            <Button Grid.Column="2"
+                Grid.Row="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Height="40"
+                Width="150"
+                Background="#464646"
+                Foreground="AntiqueWhite"
+                FontFamily="Comic Sans MS"
+                FontSize="16"
+                FontWeight="Bold"
+                Click="AddTestClick">
+                Dodaj do testów
+            </Button>
+            <Button Grid.Column="3"
+                Grid.Row="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Height="40"
+                Width="150"
+                Background="#464646"
+                Foreground="AntiqueWhite"
+                FontFamily="Comic Sans MS"
+                FontSize="16"
+                FontWeight="Bold"
+                Click="ShowTestsClick">
+                Wyświetl testy
+            </Button>
+            <Button Grid.Column="4"
+                Grid.Row="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Height="40"
+                Width="150"
+                Background="#464646"
+                Foreground="AntiqueWhite"
+                FontFamily="Comic Sans MS"
+                FontSize="16"
+                FontWeight="Bold"
+                Click="RunTestsClick">
+                Uruchom testy
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,77 @@
+﻿<Window x:Class="ConnectFourGame.Game"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConnectFourGame"
+        mc:Ignorable="d"
+        Title="Game" Height="450" Width="800"
+        Background="#292929">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="450"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0"
+              Grid.Column="0"
+              Name="GameGrid"
+              PreviewMouseLeftButtonDown="gameGridClick">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="75"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="75" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="75" />
+            </Grid.ColumnDefinitions>
+        </Grid>
+        <Grid Grid.Row="0"
+              Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer Grid.Row="0"
+                          Grid.Column="0"
+                          Name="ScrollViewer">
+                <Grid Name="ScrollViewerGrid"/>
+            </ScrollViewer>
+            <Label Grid.Column="0"
+               Grid.Row="1"
+               HorizontalAlignment="Center"
+               Foreground="AntiqueWhite"
+               FontWeight="Bold"
+               FontFamily="Comic Sans MS"
+               FontSize="18">
+                Następny ruch:
+            </Label>
+            <DataGridCell
+                Grid.Column="0"
+                Grid.Row="2"
+                Width="60"
+                Height="60"
+                Name="NextMoveCell"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                />
+        </Grid>
+    </Grid>
+    
+</Window>
